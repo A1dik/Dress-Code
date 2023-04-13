@@ -1,0 +1,14 @@
+.sign-in{
+  position: absolute;
+  z-index: 2;
+}
+.btn-signin:active{
+  transform: translateX(100%);
+}
+.sign-up{
+  position: absolute;
+  z-index: 1;
+}
+.btn-signin:active{
+  transform: translateX(-100%);
+}

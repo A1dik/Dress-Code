@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'products', component: ProductsComponent},
   {path: 'products/:categoryName', component: ProductCategoryComponent},
   {path: 'products/:productId',component: ProductDetailComponent}
+
 ];
 
 @NgModule({
