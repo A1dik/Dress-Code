@@ -7,7 +7,9 @@ from django.views.generic.list import ListView
 from common.views import TitleMixin
 from main.models import Basket, Product, ProductCategory
 from users.models import User
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import CategorySerializer, ProductSerializer
 
 class IndexView(TitleMixin,TemplateView):  # класс который отвечает на view представлеие
     template_name = 'dress/index.html'
@@ -74,6 +76,25 @@ def basket_add(request, product_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+class CategoryList(APIView):
+    def get(self, request):
+        categories = ProductCategory.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+
+class ProductList(APIView):
+    def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+
+class CategoryProduct(APIView):
+    def get(self, request, category_id):
+        products = Product.objects.filter(category_id=category_id)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
 @login_required
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
