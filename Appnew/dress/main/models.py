@@ -1,8 +1,6 @@
 from django.db import models
 
 from users.models import User
-
-
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
@@ -52,6 +50,3 @@ class Basket(models.Model):
 
     def sum(self):
         return self.product.price * self.quantity
-
-
-

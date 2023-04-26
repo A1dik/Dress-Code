@@ -9,7 +9,10 @@ from main.models import Basket, Product, ProductCategory
 from users.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import CategorySerializer, ProductSerializer
+from rest_framework import mixins
 
 class IndexView(TitleMixin,TemplateView):  # класс который отвечает на view представлеие
     template_name = 'dress/index.html'
@@ -77,6 +80,7 @@ def basket_add(request, product_id):
 
 
 class CategoryList(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request):
         categories = ProductCategory.objects.all()
         serializer = CategorySerializer(categories, many=True)
@@ -84,6 +88,7 @@ class CategoryList(APIView):
 
 
 class ProductList(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -91,6 +96,7 @@ class ProductList(APIView):
 
 
 class CategoryProduct(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request, category_id):
         products = Product.objects.filter(category_id=category_id)
         serializer = ProductSerializer(products, many=True)
@@ -100,3 +106,13 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+class ProductDetailAPIView(mixins.RetrieveModelMixin, generics.GenericAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_url_kwarg = 'product_id'
+    permission_classes = (AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)

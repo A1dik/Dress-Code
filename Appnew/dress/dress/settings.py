@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
+from django.utils.translation import gettext
+django.utils.translation.ugettext = gettext
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +51,8 @@ INSTALLED_APPS = [
     "main.apps.MainConfig",
     "corsheaders",
     "rest_framework",
+    "rest_framework_jwt",
+    'user',
     'users'
 ]
 
@@ -166,4 +173,15 @@ SOCIALACCOUNT_PROVIDERS = {
             'user',
         ],
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
