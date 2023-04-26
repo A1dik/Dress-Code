@@ -11,6 +11,7 @@ import {CategoriesService} from "../categories.service";
 export class HomeComponent implements OnInit{
   categories: Categories[] = [];
 
+  username = localStorage.getItem('username');
   constructor(private categoriesService: CategoriesService) {
   }
   ngOnInit() {

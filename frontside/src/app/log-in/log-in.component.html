@@ -1,1 +1,13 @@
-<p>log-in works!</p>
+<ng-container *ngIf="logged">
+  <p>Hello</p>
+  <button (click)="logout()">Log out</button>
+  <button [routerLink]="['']">Home</button>
+</ng-container>
+
+<ng-container *ngIf="!logged">
+  <input type="text" placeholder="username" [(ngModel)]="username">
+  <input type="password" placeholder="password" [(ngModel)]="password">
+  <button (click)="login()">Login</button>
+  <a [routerLink]="['/register']">Don't have an account? Register</a>
+</ng-container>
+

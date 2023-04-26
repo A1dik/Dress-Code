@@ -1,0 +1,12 @@
+<ng-container *ngIf="!registered">
+  <input  type="text" [(ngModel)]="username" placeholder="username">
+  <input type="password" [(ngModel)]="password" placeholder="password">
+  <input type="text" [(ngModel)]="email" placeholder="email">
+  <input type="text" [(ngModel)]="first_name" placeholder="First name">
+  <input type="text" [(ngModel)]="last_name" placeholder="Last name">
+  <button (click)="register()">Register</button>
+</ng-container>
+
+<ng-container *ngIf="registered">
+  <a [routerLink]="['/login']">You successfully registered. Go to login page and log-in!</a>
+</ng-container>

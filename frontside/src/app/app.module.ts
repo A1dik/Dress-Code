@@ -7,9 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import {HttpClientModule, HttpClient} from "@angular/common/http";
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryProductsComponent } from './category-products/category-products.component';
+import { ProfileComponent } from './profile/profile.component';
+import {FormsModule} from "@angular/forms";
+import {AuthInterceptor} from "./AuthInterceptor";
+import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +24,24 @@ import { CategoryProductsComponent } from './category-products/category-products
     ProductsComponent,
     ProductDetailComponent,
     CategoriesComponent,
-    CategoryProductsComponent
+    CategoryProductsComponent,
+    ProfileComponent,
+    RegisterComponent,
+    CartComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

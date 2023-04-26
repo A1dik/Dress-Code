@@ -13,3 +13,21 @@ export interface Categories {
   name : string;
   description: string;
 }
+
+export interface AuthToken{
+  token: string
+}
+
+export interface Register{
+  username: string,
+  password: string,
+  email: string,
+  first_name: string,
+  last_name: string
+}
+
+export interface Cart{
+  user_id: number,
+  product_id: number,
+  username: string,
+}
