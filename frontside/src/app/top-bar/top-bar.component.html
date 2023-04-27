@@ -1,0 +1,33 @@
+<div class="top-bar">
+
+  <div class="top-bar-elem" [routerLink]="['/about']">
+    <p>About</p>
+  </div>
+  <div class="top-bar-elem" [routerLink]="['/home']">
+    <p>Home</p>
+  </div>
+  <div class="top-bar-elem" [routerLink]="['/categories']">
+    <p>Categories</p>
+  </div>
+  <div class="top-bar-elem" [routerLink]="['/products']">
+    <p>Products</p>
+  </div>
+
+  <div class="top-bar-elem" href="#contact" [routerLink]="['/contact']">
+    <p>Contact us</p>
+  </div>
+
+</div>
+
+<div class="cart" [routerLink]="['cart/']">
+  <img id="cart-icon" src="assets/images/cart-icon.png">
+</div>
+
+<div id="log-in" [routerLink]="['/login']">
+  <p>
+    <span *ngIf="username">{{username}}</span>
+    <span *ngIf="!username">Log-in</span>
+    <img src="assets/images/sign-up.png" id="sign-up-icon">
+  </p>
+</div>
+<div class="line"></div>

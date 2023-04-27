@@ -79,33 +79,3 @@ p {
   background-color: black;
   color: white;
 }
-#shop-icon{
-  position: relative;
-  top: 20px;
-  left: 360px;
-  width: 800px;
-  height: 420px;
-  border-radius: 20px;
-  z-index: 0;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-#shop-icon:hover{
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 8px 0px;
-}
-#shop-now{
-  position: absolute;
-  color: white;
-  top: 380px;
-  left: 659px;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.category{
-  display: flex;
-  position: relative;
-  top: 40px;
-  left: 295px;
-}
-

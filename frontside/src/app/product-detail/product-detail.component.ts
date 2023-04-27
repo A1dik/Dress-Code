@@ -36,8 +36,8 @@ export class ProductDetailComponent implements OnInit{
   addToCart(){
     if(this.currentUser) {
       return this.cartService.addProduct(Number(this.product_id), this.currentUser).subscribe((data) => {
-        this.product_id = data.product_id;
-        this.currentUser = data.username;
+        this.product_id = data.product;
+        this.currentUser = data.user_name;
       })
     } else{
       return console.log('No');

@@ -1,3 +1,10 @@
-<p *ngFor="let product of products">
-  {{product.username}}
-</p>
+
+<div *ngFor="let product of products" class="carts">
+  <p>Production ID:{{ product.product }}</p>
+  <p>Order ID:{{product.id}}</p>
+  <button (click)="getProductsfrom(product.product)">Show</button>
+  <p>Name: {{prod_name}}</p>
+  <p>Price: {{prod_price}}</p>
+  <img src="{{prod_img}}" width="200px" height="300px">
+  <button (click)="deleteCart(product.id)">Delete</button>
+</div>

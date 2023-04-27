@@ -14,7 +14,11 @@ export class CartService {
       {product:product_id, user_name:username})
   }
 
-  getProducts(username: number): Observable<Cart[]>{
+  getProducts(username:string): Observable<Cart[]>{
     return this.client.get<Cart[]>(`${this.BASE_URL}user/cart/${username}/`)
+  }
+
+  deleteCart(cart_id:number):Observable<Cart>{
+    return this.client.delete<Cart>(`${this.BASE_URL}user/cart/${cart_id}/`)
   }
 }

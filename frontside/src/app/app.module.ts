@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {forwardRef, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,10 +11,13 @@ import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from "@angular/common/h
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryProductsComponent } from './category-products/category-products.component';
 import { ProfileComponent } from './profile/profile.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {AuthInterceptor} from "./AuthInterceptor";
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { CartComponent } from './cart/cart.component';
     CategoryProductsComponent,
     ProfileComponent,
     RegisterComponent,
-    CartComponent
+    CartComponent,
+    TopBarComponent,
+    AboutComponent,
+    ContactComponent
   ],
     imports: [
         BrowserModule,
@@ -40,7 +46,8 @@ import { CartComponent } from './cart/cart.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+
   ],
   bootstrap: [AppComponent]
 })

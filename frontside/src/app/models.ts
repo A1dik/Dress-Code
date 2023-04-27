@@ -27,7 +27,7 @@ export interface Register{
 }
 
 export interface Cart{
-  user_id: number,
-  product_id: number,
-  username: string,
+  id: number,
+  product: number,
+  user_name: string,
 }
