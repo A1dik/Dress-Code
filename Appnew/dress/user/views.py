@@ -1,12 +1,14 @@
-from rest_framework import generics, permissions, mixins
+from rest_framework import generics, permissions, mixins, status
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from .serializers import RegisterSerializer, UserSerializer, CartSerializer
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Cart
 from main.models import Product
 
-
+User = get_user_model()
 # Register API
 class RegisterApi(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -40,14 +42,22 @@ class CartView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyMod
 class CartDetailedView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     serializer_class = CartSerializer
     permission_classes = (IsAuthenticated,)
-    lookup_url_kwarg = 'user_id'
+    lookup_url_kwarg = 'user_name'
+    lookup_url_kwarg = 'id'
     queryset = Cart.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def get(self, request, user_name):
+        username = user_name
+        user = get_object_or_404(User, username=username)
+        carts = Cart.objects.filter(user=user)
+        serializer = CartSerializer(carts, many=True)
+        return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+    def delete(self, request, cart_id):
+        cart = Cart.objects.get(id=cart_id)
+        cart.delete()
+        return Response({'deleted': True})
+

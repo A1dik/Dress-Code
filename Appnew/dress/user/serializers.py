@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from django.db import models
 from django.contrib.auth.models import User
@@ -6,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from main.models import Product
+from rest_framework.response import Response
+
 from .models import Cart
 
 User = get_user_model()
@@ -39,13 +42,19 @@ class CartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ('product', 'user_name')
+        fields = ('id','product', 'user_name')
 
+    def get(self, request, user_name):
+        username = user_name
+        user = get_object_or_404(User, username=username)
+        carts = Cart.objects.filter(user=user)
+        serializer = CartSerializer(carts, many=True)
+        return Response(serializer.data)
     def create(self, validated_data):
         username = validated_data.pop('user')['username']
         user = User.objects.get(username=username)
         product = validated_data.pop('product')
         product_id = product.id
         product = Product.objects.get(id=product_id)
-        cart = Cart.objects.create(product_id=product_id,user=user,)
+        cart = Cart.objects.create(product_id=product_id,user=user)
         return cart

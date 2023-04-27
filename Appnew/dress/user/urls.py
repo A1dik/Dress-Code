@@ -6,5 +6,6 @@ urlpatterns = [
     path('login/', obtain_jwt_token),
     path('register/', RegisterApi.as_view()),
     path('cart/', CartView.as_view()),
-    path('cart/<int:user_id>/', CartDetailedView.as_view())
+    path('cart/<int:cart_id>/', CartDetailedView.as_view()),
+    path('cart/<str:user_name>/', CartDetailedView.as_view()),
 ]
