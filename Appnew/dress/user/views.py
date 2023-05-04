@@ -39,11 +39,11 @@ class CartView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyMod
         return self.destroy(request, *args, **kwargs)
 
 
-class CartDetailedView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+class CartDetailedView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
     serializer_class = CartSerializer
     permission_classes = (IsAuthenticated,)
     lookup_url_kwarg = 'user_name'
-    lookup_url_kwarg = 'id'
+    lookup_url_kwarg = 'product_id'
     queryset = Cart.objects.all()
 
     def get(self, request, user_name):
@@ -60,4 +60,7 @@ class CartDetailedView(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.De
         cart = Cart.objects.get(id=cart_id)
         cart.delete()
         return Response({'deleted': True})
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 

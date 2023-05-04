@@ -3,7 +3,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
-
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from common.views import TitleMixin
 from main.models import Basket, Product, ProductCategory
 from users.models import User
@@ -87,9 +88,29 @@ class CategoryList(APIView):
         return Response(serializer.data)
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((AllowAny,))
+def category_list(request):
+    permission_classes = (AllowAny,)
+    if request.method == 'GET':
+        categories = ProductCategory.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+
 class ProductList(APIView):
     permission_classes = (AllowAny,)
     def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET', 'POST'])
+@permission_classes((AllowAny,))
+def product_list(request):
+    permission_classes = (AllowAny,)
+    if request.method == 'GET':
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
@@ -103,6 +124,7 @@ class CategoryProduct(APIView):
         return Response(serializer.data)
 @login_required
 def basket_remove(request, basket_id):
+    permission_classes = (AllowAny,)
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -6,8 +6,8 @@ from users.models import EmailVerification, User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):  # modelAdmin - Для работы с определенными моделями
-    list_display = ('username',)
-    inlines = (BasketAdmin,)
+     list_display = ('username', 'email')
+     inlines = (BasketAdmin,)
 
 
 @admin.register(EmailVerification)

@@ -12,6 +12,4 @@ urlpatterns = [
     path('profile/<int:pk>/', login_required(UserProfileView.as_view()), name='profile'),#тут будет передаваться айдишник нашего юзера
     path('logout/', logout, name='logout'),
     path('verify/<str:email>/<uuid:code>/', EmailVerificationView.as_view(), name='email_verification'),
-
-
 ]
