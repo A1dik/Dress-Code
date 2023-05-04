@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Cart} from "../models";
+import {Products} from "../models";
 import {CartService} from "../cart.service";
 import {ProductsService} from "../products.service";
 
@@ -11,10 +12,12 @@ import {ProductsService} from "../products.service";
 export class CartComponent implements OnInit{
   id: number | undefined;
   products: Cart[] = [];
+  carts: Products[] = [];
   username = localStorage.getItem('username')
   prod_name: string = '';
   prod_img: File | undefined;
   prod_price: number | undefined;
+  product_id: number| undefined;
 
   constructor(private cartService: CartService, private productsService: ProductsService) {
   }
@@ -42,4 +45,5 @@ export class CartComponent implements OnInit{
       this.products = this.products.filter((cart) => cart.id !== id)
     })
   }
+
 }

@@ -1,4 +1,4 @@
-<div *ngFor="let product of products" [routerLink]="['products',product.id]">
+<div *ngFor="let product of products" [routerLink]="['products',product.id]" class="product-cat">
   <div>
     <img src="http://127.0.0.1:8000{{product.image}}" width="200px" height="266px">
     <p>{{product.name}}</p>

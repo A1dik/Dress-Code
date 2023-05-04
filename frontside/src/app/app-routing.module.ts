@@ -32,7 +32,10 @@ const routes: Routes = [
   {path:'login', component: LogInComponent},
   {path: 'register', component: RegisterComponent},
   {path:'profile', component: ProfileComponent},
-  {path:'cart', component: CartComponent}
+  {path:'cart', component: CartComponent},
+  {path:'cart/categories', component: CategoriesComponent},
+  {path:'cart/categories/categories/:id', component: CategoryProductsComponent},
+  {path:'cart/categories/categories/:id/products/:id', component:ProductDetailComponent}
 ];
 
 @NgModule({

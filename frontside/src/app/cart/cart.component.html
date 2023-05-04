@@ -7,4 +7,5 @@
   <p>Price: {{prod_price}}</p>
   <img src="{{prod_img}}" width="200px" height="300px">
   <button (click)="deleteCart(product.id)">Delete</button>
+  <button (click)="deleteCart(product.id)" [routerLink]="['categories']">Update</button>
 </div>
